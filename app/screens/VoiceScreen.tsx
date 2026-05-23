@@ -103,7 +103,6 @@ export default function VoiceScreen() {
                 },
             });
         } catch (e: any) {
-            console.log('transcribe failed', e?.response?.status, e?.response?.data, e?.message);
             const detail = e?.response?.data?.detail;
             const msg = typeof detail === 'string' ? detail : 'Nie udało się wysłać nagrania.';
             Alert.alert('Błąd', msg);

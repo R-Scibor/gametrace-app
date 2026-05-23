@@ -38,13 +38,10 @@ export default function GameDetailScreen() {
     const { gameId, gameName } = route.params;
 
     const [sessions, setSessions] = useState<Session[]>([]);
-    const [loading, setLoading] = useState(false);
     const [loadError, setLoadError] = useState(false);
 
     useEffect(() => {
         (async () => {
-            if (loading) return;
-            setLoading(true);
             try {
                 const all: Session[] = [];
                 const PAGE = 100;
@@ -57,7 +54,6 @@ export default function GameDetailScreen() {
             } catch {
                 setLoadError(true);
             }
-            setLoading(false);
         })();
     }, []);
 

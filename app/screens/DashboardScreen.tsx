@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import {
     View, Text, ScrollView, TouchableOpacity, StyleSheet,
     RefreshControl, ActivityIndicator,
@@ -9,6 +9,7 @@ import { useDashboard } from '../hooks/useDashboard';
 import { useRecentSessions } from '../hooks/useRecentSessions';
 import LiveTimer from '../components/LiveTimer';
 import Cover from '../components/Cover';
+import ErrorBanner from '../components/ErrorBanner';
 import { Session } from '../types/api';
 import { colors } from '../theme/colors';
 import { displayFont, bodyFont } from '../theme/fonts';
@@ -40,14 +41,14 @@ const fmtHeaderDate = () => {
 export default function DashboardScreen() {
     const navigation = useNavigation<any>();
     const { data, loading, error, refresh } = useDashboard();
-    const { data: recents, refresh: refreshRecents } = useRecentSessions(data?.active_session?.id ?? null);
+    const { data: recents, loadError: recentsError, refresh: refreshRecents } = useRecentSessions(data?.active_session?.id ?? null);
     const [refreshing, setRefreshing] = useState(false);
 
-    const onPullRefresh = useCallback(async () => {
+    const onPullRefresh = async () => {
         setRefreshing(true);
         await Promise.all([refresh(), refreshRecents()]);
         setRefreshing(false);
-    }, [refresh, refreshRecents]);
+    };
 
     const openActive = () => {
         if (data?.active_session) {
@@ -180,6 +181,10 @@ export default function DashboardScreen() {
                     <View style={styles.sectionRule} />
                 </View>
 
+                {recentsError && (
+                    <ErrorBanner message="Nie udało się pobrać ostatnich sesji." style={styles.recentsErrorWrap} />
+                )}
+
                 {recents.length === 0 ? (
                     <Text style={styles.emptyText}>Brak sesji do wyświetlenia</Text>
                 ) : (
@@ -264,8 +269,8 @@ const styles = StyleSheet.create({
     activeRow: { flexDirection: 'row' },
     coverWrap: { width: 72, height: 100 },
     cover: { width: '100%', height: '100%' },
-    coverPlaceholder: { backgroundColor: colors.bg3 },
     activeMeta: { flex: 1, paddingHorizontal: 14, paddingVertical: 12, gap: 4 },
+    recentsErrorWrap: { marginHorizontal: 20, marginBottom: 8 },
     liveRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
     liveDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.orange },
     liveLabel: {

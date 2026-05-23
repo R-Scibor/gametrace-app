@@ -9,6 +9,7 @@ const RECENT_LIMIT = 5;
 export const useRecentSessions = (activeSessionId: number | null | undefined) => {
     const [data, setData] = useState<Session[]>([]);
     const [loading, setLoading] = useState(true);
+    const [loadError, setLoadError] = useState(false);
     const stale = useSessionsStore((s) => s.stale);
     const markFresh = useSessionsStore((s) => s.markFresh);
     const prevActiveIdRef = useRef<number | null | undefined>(activeSessionId);
@@ -20,9 +21,10 @@ export const useRecentSessions = (activeSessionId: number | null | undefined) =>
                 limit: RECENT_LIMIT,
             });
             setData(result);
+            setLoadError(false);
             markFresh();
         } catch {
-            // TODO
+            setLoadError(true);
         } finally {
             setLoading(false);
         }
@@ -48,5 +50,5 @@ export const useRecentSessions = (activeSessionId: number | null | undefined) =>
         if (stale) fetchData();
     }, [stale, fetchData]);
 
-    return { data, loading, refresh: fetchData };
+    return { data, loading, loadError, refresh: fetchData };
 };

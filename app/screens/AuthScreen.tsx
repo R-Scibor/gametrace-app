@@ -37,8 +37,7 @@ export default function AuthScreen() {
 
         <View style={styles.form}>
           <Text style={styles.label}>NAZWA UŻYTKOWNIKA DISCORD</Text>
-          
-          {/* UPDATED: Wrapper approach for the input */}
+
           <View style={styles.inputWrapper}>
             <View style={styles.orangeBar} />
             <TextInput
@@ -108,30 +107,28 @@ const styles = StyleSheet.create({
     fontFamily: displayFont.regular, fontSize: 11, letterSpacing: 1,
     color: colors.text3,
   },
-  
-  // UPDATED: Separated wrapper, bar, and input styles
   inputWrapper: {
     flexDirection: 'row',
     backgroundColor: colors.bg3,
-    borderWidth: 1, 
-    borderColor: colors.borderBright, 
+    borderWidth: 1,
+    borderColor: colors.borderBright,
     borderRadius: 2,
-    overflow: 'hidden', // Prevents the orange bar from bleeding past the border radius
+    overflow: 'hidden',
   },
   orangeBar: {
     width: 2,
     backgroundColor: colors.orange,
   },
   input: {
-    flex: 1, // Ensures the input takes up the remaining space next to the bar
-    paddingHorizontal: 16, 
+    flex: 1,
+    paddingHorizontal: 16,
     paddingVertical: 14,
-    fontFamily: bodyFont.regular, 
-    fontSize: 16, 
+    fontFamily: bodyFont.regular,
+    fontSize: 16,
     color: colors.text,
-    borderWidth: 0, // Strips any borders from the actual TextInput to prevent bugs
+    borderWidth: 0,
   },
-  
+
   button: {
     backgroundColor: colors.orange, borderRadius: 2,
     paddingVertical: 15, alignItems: 'center', marginTop: 4,

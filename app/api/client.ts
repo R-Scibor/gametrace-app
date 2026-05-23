@@ -20,8 +20,7 @@ client.interceptors.response.use(
     (error) => {
         if (error.response?.status === 401) {
             useAuthStore.getState().logout();
-            // redirect and message later TODO!!
-            console.log('401 — brak autoryzacji, wylogowano użytkownika');
+            // TODO: surface a "session expired" toast/alert on next screen
         }
         return Promise.reject(error);
     }

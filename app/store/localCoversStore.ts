@@ -12,13 +12,9 @@ type LocalCoversState = {
 };
 
 const ensureDir = async () => {
-    try {
-        const info = await FileSystem.getInfoAsync(COVERS_DIR);
-        if (!info.exists) {
-            await FileSystem.makeDirectoryAsync(COVERS_DIR, { intermediates: true });
-        }
-    } catch {
-        // TODO
+    const info = await FileSystem.getInfoAsync(COVERS_DIR);
+    if (!info.exists) {
+        await FileSystem.makeDirectoryAsync(COVERS_DIR, { intermediates: true });
     }
 };
 
@@ -30,14 +26,9 @@ export const useLocalCoversStore = create<LocalCoversState>()(
             setCover: async (gameId, sourceUri) => {
                 await ensureDir();
                 const dest = `${COVERS_DIR}${gameId}.jpg`;
-                try {
-                    const existing = await FileSystem.getInfoAsync(dest);
-                    if (existing.exists) await FileSystem.deleteAsync(dest, { idempotent: true });
-                    await FileSystem.copyAsync({ from: sourceUri, to: dest });
-                } catch {
-                    // TODO
-                    return;
-                }
+                const existing = await FileSystem.getInfoAsync(dest);
+                if (existing.exists) await FileSystem.deleteAsync(dest, { idempotent: true });
+                await FileSystem.copyAsync({ from: sourceUri, to: dest });
                 // cache-bust so <Image> re-renders even when path is identical
                 const uri = `${dest}?v=${Date.now()}`;
                 set({ covers: { ...get().covers, [gameId]: uri } });
@@ -45,11 +36,7 @@ export const useLocalCoversStore = create<LocalCoversState>()(
 
             clearCover: async (gameId) => {
                 const dest = `${COVERS_DIR}${gameId}.jpg`;
-                try {
-                    await FileSystem.deleteAsync(dest, { idempotent: true });
-                } catch {
-                    // TODO
-                }
+                await FileSystem.deleteAsync(dest, { idempotent: true });
                 const next = { ...get().covers };
                 delete next[gameId];
                 set({ covers: next });

@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 type User = {
     discordId: string;
     username: string;
-    //TODO: avatar??
 };
 
 type AuthState = {

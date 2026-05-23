@@ -244,13 +244,6 @@ const styles = StyleSheet.create({
     cellReview: { borderColor: colors.warnBorder, backgroundColor: colors.warnTint },
     coverWrap: { width: CELL_WIDTH, height: CELL_HEIGHT, position: 'relative' },
     cover: { width: CELL_WIDTH, height: CELL_HEIGHT, borderRadius: 3, backgroundColor: colors.bg3 },
-    coverPlaceholder: {
-        backgroundColor: colors.bg3,
-        alignItems: 'center', justifyContent: 'center',
-    },
-    placeholderText: {
-        fontFamily: displayFont.bold, fontSize: 48, color: colors.text3,
-    },
     reviewBadge: {
         position: 'absolute', top: 6, right: 6,
         width: 22, height: 22, borderRadius: 11,

@@ -13,7 +13,7 @@ export function getAllZones(): string[] {
         const fn = (Intl as any).supportedValuesOf;
         if (typeof fn === 'function') return fn('timeZone');
     } catch {
-        // TODO
+        // fall through to fallback zones
     }
     return FALLBACK_ZONES;
 }

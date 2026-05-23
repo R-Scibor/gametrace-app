@@ -78,7 +78,6 @@ export default function AddSessionScreen() {
             useSessionsStore.getState().invalidate();
             navigation.goBack();
         } catch (e: any) {
-            console.log('createSession failed', e?.response?.status, e?.response?.data, e?.message);
             const detail = e?.response?.data?.detail;
             const msg = typeof detail === 'string' ? detail : detail?.detail ?? 'Nie udało się zapisać sesji';
             Alert.alert('Błąd', msg);

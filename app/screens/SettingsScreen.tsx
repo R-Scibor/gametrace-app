@@ -47,7 +47,7 @@ export default function SettingsScreen() {
             try {
                 setHealth(await getHealth());
             } catch {
-                // TODO
+                // health is best-effort; UI falls back to '—'
             }
         })();
     }, []);
