@@ -5,7 +5,7 @@ import AuthScreen from '../screens/AuthScreen';
 import TabNavigator from './TabNavigator';
 import GameDetailScreen from '../screens/GameDetailScreen';
 import EditSessionScreen from '../screens/EditSessionScreen';
-import CameraScreen from '../screens/CameraScreen';
+import VoiceScreen from '../screens/VoiceScreen';
 
 const Stack = createNativeStackNavigator();
 
