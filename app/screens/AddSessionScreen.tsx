@@ -47,7 +47,7 @@ export default function AddSessionScreen() {
                 setGamesLoadError(true);
             }
         })();
-        
+
         const start = combineDateTime(prefill?.date, prefill?.startTime);
         const end = combineDateTime(prefill?.date, prefill?.endTime);
         if (start) setStartTime(start);
@@ -177,7 +177,7 @@ export default function AddSessionScreen() {
                 {/* Voice */}
                 <TouchableOpacity
                     style={common.secondaryButton}
-                    onPress={() => navigation.navigate('Camera')}
+                    onPress={() => navigation.navigate('Voice')}
                     activeOpacity={0.7}
                 >
                     <Text style={common.secondaryButtonText}>NAGRAJ GŁOSOWO</Text>
